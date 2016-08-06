@@ -7,32 +7,22 @@ import java.awt.image.BufferStrategy;
 
 import framework.KeyInputs;
 import framework.ObjectId;
+import objects.Block;
 import objects.Player;
 
 @SuppressWarnings("serial")
 public class Game extends Canvas implements Runnable {
 
-	```public static final int WIDTH = 800, HEIGHT = 600;
+	public static int WIDTH, HEIGHT;
 	private boolean running = false;
 	private Thread thread;
-	
+
 	ObjectHandler handler;
-	
-	public synchronized void start(){
-		
-		if(running)
-			return;
-		
-		running = true;
-		thread = new Thread(this);
-		thread.start();
-		
-	}
-	
+
 	public void run() {
 		init();
 		this.requestFocus();
-		
+
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
 		double ns = 1000000000 / amountOfTicks;
@@ -61,45 +51,57 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 
-
 	private void render() {
-		BufferStrategy bs = this.getBufferStrategy(); //gets the buffer strategy from canvas
-		if(bs == null){ // if canvas doesn't have a buffer strategy
+		BufferStrategy bs = this.getBufferStrategy(); // gets the buffer
+														// strategy from canvas
+		if (bs == null) { // if canvas doesn't have a buffer strategy
 			this.createBufferStrategy(3); // make buffer strategy for canvas
 			return; // try again
 		}
-		
+
 		Graphics g = bs.getDrawGraphics();
-		//////////Draw here
-		g.setColor(Color.white);
+		////////// Draw here
+		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
-		
+
 		handler.render(g);
 		//////////
 		g.dispose();
-		
-		bs.show();
-		
-	}
 
+		bs.show();
+
+	}
 
 	private void tick() {
 		handler.tick();
 	}
 
-
 	private void init() {
+		WIDTH = this.getWidth();
+		HEIGHT = this.getHeight();
+		
 		handler = new ObjectHandler();
 		handler.addObject(new Player(0, 0, ObjectId.Player));
-		this.addKeyListener(new KeyInputs(handler.getObjectList()));	
-	}
-
-
-	public static void main(String args[]){
-		new Window(WIDTH, HEIGHT, "Game", new Game());
+		handler.addObject(new Block(100,100,ObjectId.Block));
+		
+		this.addKeyListener(new KeyInputs(handler.getObjectList()));
 		
 	}
 
+	public synchronized void start() {
+
+		if (running)
+			return;
+
+		running = true;
+		thread = new Thread(this);
+		thread.start();
+
+	}
+
+	public static void main(String args[]) {
+		new Window(800, 600, "Game", new Game());
+
+	}
 
 }
-

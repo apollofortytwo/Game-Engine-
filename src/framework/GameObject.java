@@ -1,6 +1,8 @@
 package framework;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.util.ArrayList;
 
 public abstract class GameObject {
 	protected int xPosition, yPosition;
@@ -17,6 +19,10 @@ public abstract class GameObject {
 	
 	public int getWidth() {
 		return width;
+	}
+	
+	public Rectangle getBounds(){
+		return new Rectangle(xPosition,yPosition,width,height);
 	}
 
 	public void setWidth(int width) {
@@ -41,13 +47,6 @@ public abstract class GameObject {
 
 	public abstract void render(Graphics g);
 
-	
-	
-	
-	
-	
-	
-	
 	public int getyVelocity() {
 		return yVelocity;
 	}
@@ -73,7 +72,7 @@ public abstract class GameObject {
 		this.xPosition = xPosition;
 	}
 
-	public abstract void tick();
+	public abstract void tick(ArrayList<GameObject> objectList);
 	
 	
 }

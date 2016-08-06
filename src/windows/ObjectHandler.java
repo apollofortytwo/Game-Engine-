@@ -10,7 +10,7 @@ public class ObjectHandler {
 	
 	public void tick(){
 		for(GameObject temp: objectList){
-			temp.tick();
+			temp.tick(objectList);
 		}
 	}
 	
