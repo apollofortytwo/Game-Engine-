@@ -25,7 +25,7 @@ public class KeyInputs implements KeyListener {
 				if(code == KeyEvent.VK_S) temp.setyVelocity(5);
 				if(code == KeyEvent.VK_A) temp.setxVelocity(-5);
 				if(code == KeyEvent.VK_D) temp.setxVelocity(5);
-				
+				return;
 			}
 		}
 	}
@@ -39,7 +39,7 @@ public class KeyInputs implements KeyListener {
 				if(code == KeyEvent.VK_S) temp.setyVelocity(0);
 				if(code == KeyEvent.VK_A) temp.setxVelocity(0);
 				if(code == KeyEvent.VK_D) temp.setxVelocity(0);
-				
+				return;
 			}
 		}
 	}

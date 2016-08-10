@@ -13,8 +13,8 @@ public class Player extends GameObject {
 
 	public Player(int xPosition, int yPosition, ObjectId id) {
 		super(xPosition, yPosition, id);
-		width = 64;
-		height = 64;
+		width = 32;
+		height = 32;
 	}
 
 	public void render(Graphics g) {
@@ -30,19 +30,20 @@ public class Player extends GameObject {
 	}
 
 	private Rectangle getTopBounds() {
-		return new Rectangle(xPosition + (width/4), yPosition, width/2, height/2);
+		return new Rectangle(xPosition + (width / 4), yPosition, width / 2, height / 2);
 	}
 
 	private Rectangle getBottomBounds() {
-		return new Rectangle(xPosition + (width/4), yPosition + (height/2), width/2, height/2);
+		return new Rectangle(xPosition + (width / 4), yPosition + (height / 2), width / 2, height / 2);
 	}
 
 	private Rectangle getLeftBounds() {
-		return new Rectangle(xPosition, yPosition + (height*1/8), width/4, height*3/4);
+		return new Rectangle(xPosition, yPosition + (height * 1 / 8), width / 4, height * 3 / 4);
 	}
 
 	private Rectangle getRightBounds() {
-		return new Rectangle(xPosition + (width) - (width/4), yPosition + (height*1/8), width/4, height*3/4);
+		return new Rectangle(xPosition + (width) - (width / 4), yPosition + (height * 1 / 8), width / 4,
+				height * 3 / 4);
 	}
 
 	public void tick(ArrayList<GameObject> objectList) {
@@ -50,32 +51,26 @@ public class Player extends GameObject {
 		yPosition += yVelocity;
 
 		collisionDetection(objectList);
-		
+
 	}
-	
-	private void collisionDetection(ArrayList<GameObject> objectList){
-		for(GameObject temp: objectList){
-			if(temp.getId().equals(ObjectId.Block)){
-				if(getBottomBounds().intersects(temp.getBounds())){
-					setyVelocity(0);
-					setyPosition(temp.getxPosition() - getHeight());
-					return;
+
+	private void collisionDetection(ArrayList<GameObject> objectList) {
+		for (GameObject temp : objectList) {
+			if (temp.getId().equals(ObjectId.Block)) {
+				if (getBottomBounds().intersects(temp.getBounds())) {
+					setyPosition(temp.getyPosition() - getHeight());
 				}
-				if(getTopBounds().intersects(temp.getBounds())){
-					setyVelocity(0);
-					setyPosition(temp.getxPosition() + temp.getHeight());
+				if (getTopBounds().intersects(temp.getBounds())) {
+					setyPosition(temp.getyPosition() + temp.getHeight());
 				}
-				if(getLeftBounds().intersects(temp.getBounds())){
-					setxVelocity(0);
+				if (getLeftBounds().intersects(temp.getBounds())) {
 					setxPosition(temp.getxPosition() + temp.getWidth());
 				}
-				if(getRightBounds().intersects(temp.getBounds())){
+				if (getRightBounds().intersects(temp.getBounds())) {
 					setxPosition(temp.getxPosition() - getWidth());
 				}
 			}
 		}
 	}
-
-
 
 }
