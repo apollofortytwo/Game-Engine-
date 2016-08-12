@@ -3,7 +3,7 @@ package windows;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import framework.GameObject;
+import objects.GameObject;
 
 public class ObjectHandler {
 	private ArrayList<GameObject> objectList = new ArrayList<GameObject>();

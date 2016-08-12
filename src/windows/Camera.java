@@ -1,6 +1,6 @@
 package windows;
 
-import framework.GameObject;
+import objects.GameObject;
 
 public class Camera {
 	private int xPosition, yPosition;
@@ -11,8 +11,8 @@ public class Camera {
 	}
 	
 	public void tick(GameObject player){
-		xPosition = player.getxPosition() - Game.WIDTH/2;
-		yPosition = player.getyPosition() - Game.HEIGHT/2;
+		xPosition = player.getxPosition() - Game.WIDTH/(Game.WIDTH* 2/Game.HEIGHT)/2;
+		yPosition = player.getyPosition() - Game.HEIGHT/(Game.WIDTH* 2/Game.HEIGHT)/2;
 		
 	}
 

@@ -1,49 +1,37 @@
 package objects;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import framework.GameObject;
-import framework.ObjectId;
+import Graphics.Animator;
 
 public class Player extends GameObject {
 
+	ArrayList<BufferedImage> walking_left, walking_right, walking_up, walking_down;
+	Animator animator;
+
 	public Player(int xPosition, int yPosition, ObjectId id) {
 		super(xPosition, yPosition, id);
-		width = 32;
-		height = 32;
+		animationSetup();
 	}
 
 	public void render(Graphics g) {
-		g.setColor(Color.blue);
-		g.fillRect(xPosition, yPosition, width, height);
-
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.setColor(Color.red);
-		g2d.draw(getTopBounds());
-		g2d.draw(getBottomBounds());
-		g2d.draw(getLeftBounds());
-		g2d.draw(getRightBounds());
+		animator.render(g);
 	}
 
-	private Rectangle getTopBounds() {
-		return new Rectangle(xPosition + (width / 4), yPosition, width / 2, height / 2);
-	}
+	private void animationSetup() {
+		// walking left
+		walking_left = new ArrayList<BufferedImage>();
+		walking_left.add(sprite.getImage(0, 2, width, height));
+		walking_left.add(sprite.getImage(1, 2, width, height));
+		walking_left.add(sprite.getImage(2, 2, width, height));
+		
 
-	private Rectangle getBottomBounds() {
-		return new Rectangle(xPosition + (width / 4), yPosition + (height / 2), width / 2, height / 2);
-	}
+		animator = new Animator(this);
+		animator.loadAnimation(walking_left);
+		animator.start();
 
-	private Rectangle getLeftBounds() {
-		return new Rectangle(xPosition, yPosition + (height * 1 / 8), width / 4, height * 3 / 4);
-	}
-
-	private Rectangle getRightBounds() {
-		return new Rectangle(xPosition + (width) - (width / 4), yPosition + (height * 1 / 8), width / 4,
-				height * 3 / 4);
 	}
 
 	public void tick(ArrayList<GameObject> objectList) {
@@ -56,7 +44,7 @@ public class Player extends GameObject {
 
 	private void collisionDetection(ArrayList<GameObject> objectList) {
 		for (GameObject temp : objectList) {
-			if (temp.getId().equals(ObjectId.Block)) {
+			if (temp.getId().equals(ObjectId.Object)) {
 				if (getBottomBounds().intersects(temp.getBounds())) {
 					setyPosition(temp.getyPosition() - getHeight());
 				}

@@ -1,29 +1,26 @@
 package objects;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import framework.GameObject;
-import framework.ObjectId;
+import Graphics.Sprite;
 
 public class Block extends GameObject {
-	
-	public Block(int xPosition, int yPosition, ObjectId id){
+	int index;
+
+	public Block(int xPosition, int yPosition, ObjectId id, int index) {
 		super(xPosition, yPosition, id);
-		width = 32;
-		height = 32;
+		this.index = index;
 	}
 
 	@Override
 	public void render(Graphics g) {
-		g.setColor(Color.white);
-		g.drawRect(xPosition, yPosition, width, height);
+		g.drawImage(this.sprite.getImageArrayList().get(index), xPosition, yPosition, null);
+
 	}
 
 	@Override
 	public void tick(ArrayList<GameObject> objectList) {
-
 
 	}
 

@@ -4,6 +4,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
+import objects.GameObject;
+import objects.ObjectId;
+
 public class KeyInputs implements KeyListener {
 
 	private ArrayList<GameObject> objectList;
